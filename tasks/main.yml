@@ -1,2 +1,19 @@
 ---
 # tasks file for netiq-edirectory
+- name: XDAS appenders
+  template:
+    src: xdasconfig.properties.j2
+    dest: /etc/opt/novell/eDirectory/conf/xdasconfig.properties
+    backup: yes
+  tags: edirectory
+
+- name: SuSEfirewall2 eDirectory service
+  become: yes
+  template:
+    src: SuSEfirewall2.eDirectory.j2
+    dest: /etc/sysconfig/SuSEfirewall2.d/services/eDirectory
+    owner: root
+  # notify: 
+  tags: 
+    - edirectory
+    - firewall

@@ -1,0 +1,59 @@
+# Brief description for appenders and their options are provided.
+# For detailed decriptions refer to log4cxx documentation.
+
+# Set the level of the root logger to DEBUG and attach appenders.
+log4j.rootLogger=debug, S, R
+
+# Defines appender S to be a SyslogAppender.
+log4j.appender.S=org.apache.log4j.net.SyslogAppender
+
+# Defines location of Syslog server.
+log4j.appender.S.Host={{ sentinel_syslog_server }}
+log4j.appender.S.Port={{ sentinel_syslog_port }}
+
+# Specify protocol to be used (UDP/TCP/SSL)
+log4j.appender.S.Protocol=TCP
+
+# Specify SSL certificate file for SSL connection.
+# File path should be given with double backslash.
+#log4j.appender.S.SSLCertFile=/etc/opt/novell/mycert.pem
+
+# Minimum log-level allowed in syslog.
+log4j.appender.S.Threshold=INFO
+
+# Defines the type of facility.
+log4j.appender.S.Facility=USER
+
+# Defines caching for SyslogAppender.
+# Inputs should be yes/no
+log4j.appender.S.CacheEnabled=yes
+
+# Cache location directory
+# Directory should be available for creating cache files
+log4j.appender.S.CacheDir=/var/opt/novell/eDirectory
+
+# Cache File Size
+# Cache File size should be in the range of 50MB to 4000MB
+log4j.appender.S.CacheMaxFileSize=500MB
+
+# Layout definition for appender Syslog S.
+log4j.appender.S.layout=org.apache.log4j.PatternLayout
+log4j.appender.S.layout.ConversionPattern=%c: %p%m%n
+
+# Defines appender R to be a Rolling File Appender.
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+
+# Log file for appender R.
+log4j.appender.R.File=/var/opt/novell/eDirectory/log/xdas-events.log
+
+# Max size of log file for appender R.
+log4j.appender.R.MaxFileSize=100MB
+
+# Set the maximum number of backup files to keep for appender R.
+# Max can be 13. If set to zero, then there will be no backup files.
+log4j.appender.R.MaxBackupIndex=10
+
+# Layout definition for appender Rolling log file R.
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %c: %p%m%n
+
